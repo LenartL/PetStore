@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: PetStore
+  data:
+    jdbc:
+      dialect: postgresql
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://127.0.0.1:5432/petstore"
+    username: "postgres"
+    password: "test1234"
+api:
+  key: "petstore-api-key"
