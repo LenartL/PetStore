@@ -18,8 +18,7 @@ import java.io.IOException;
 public class ApiKeyFilter extends OncePerRequestFilter {
     @Value("${api.key:default-api-key}")
     private String apiKey;
-    @Value("${security.wrong-api-key}")
-    private String wrongApiKeyResp;
+
     private static final String HEADER = "x-api-key";
 
     @Override
@@ -30,7 +29,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
                     .setAuthentication(new ApiKeyAuthentication(apiKey, AuthorityUtils.NO_AUTHORITIES));
             filterChain.doFilter(request, response);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, wrongApiKeyResp);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 }
