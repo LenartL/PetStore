@@ -27,17 +27,6 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     public OrderDetails getOrderById(@PathVariable Long orderId) {
-        /*TODO: return an order by id:
-        Response model example:
-        {
-        "id": 0,
-        "petId": 0,
-        "quantity": 0,
-        "shipDate": "2024-11-23T17:13:49.287Z",
-        "status": "placed",
-        "complete": true
-        }
-         */
         return orderService.findById(orderId);
     }
 
@@ -52,9 +41,9 @@ public class OrderController {
         return null;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{orderId}")
     public void deleteOrder(@PathVariable Long orderId) {
-        //TODO: delete an order by id, no resp body
+        orderService.deleteById(orderId);
     }
 
 }

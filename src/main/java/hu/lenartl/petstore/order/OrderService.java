@@ -1,5 +1,6 @@
 package hu.lenartl.petstore.order;
 
+import hu.lenartl.petstore.exception.OrderNotFoundException;
 import hu.lenartl.petstore.order.dto.OrderCommand;
 import hu.lenartl.petstore.order.dto.OrderDetails;
 import hu.lenartl.petstore.pet.PetService;
@@ -26,7 +27,7 @@ public class OrderService {
     }
 
     public OrderDetails findById(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         return map(order);
     }
 
@@ -54,5 +55,10 @@ public class OrderService {
                 .status(order.getStatus().getDisplayValue())
                 .complete(order.isComplete())
                 .build();
+    }
+
+    public void deleteById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        orderRepository.delete(order);
     }
 }

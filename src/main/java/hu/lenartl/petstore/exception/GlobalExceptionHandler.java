@@ -19,6 +19,12 @@ public class GlobalExceptionHandler implements ErrorController {
         this.messageSource = messageSource;
     }
 
+    @ExceptionHandler(OrderNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String orderNotFoundHandler(OrderNotFoundException e) {
+        return messageSource.getMessage("exception.order.not-found", null, Locale.getDefault());
+    }
+
     @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String invalidOrderHandler(RuntimeException e) {
