@@ -21,6 +21,15 @@ public class OrderService {
         this.petService = petService;
     }
 
+    public List<Long> getAllIdsBetween(LocalDateTime from, LocalDateTime to) {
+        return orderRepository.getAllIdsBetween(from, to);
+    }
+
+    public OrderDetails findById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        return map(order);
+    }
+
     public OrderDetails save(OrderCommand command) {
         Order order = orderRepository.save(map(command));
         return map(order);
@@ -45,9 +54,5 @@ public class OrderService {
                 .status(order.getStatus().getDisplayValue())
                 .complete(order.isComplete())
                 .build();
-    }
-
-    public List<Long> getAllIdsBetween(LocalDateTime from, LocalDateTime to) {
-        return orderRepository.getAllIdsBetween(from, to);
     }
 }
