@@ -6,6 +6,9 @@ import hu.lenartl.petstore.pet.PetService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @Transactional
 public class OrderService {
@@ -42,5 +45,9 @@ public class OrderService {
                 .status(order.getStatus().getDisplayValue())
                 .complete(order.isComplete())
                 .build();
+    }
+
+    public List<Long> getAllIdsBetween(LocalDateTime from, LocalDateTime to) {
+        return orderRepository.getAllIdsBetween(from, to);
     }
 }

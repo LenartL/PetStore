@@ -2,8 +2,10 @@ package hu.lenartl.petstore.order;
 
 import hu.lenartl.petstore.order.dto.OrderCommand;
 import hu.lenartl.petstore.order.dto.OrderDetails;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -17,9 +19,10 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<Long> getAllOrderIds() {
-        //TODO: return all orders id, filterable by shippingDate:from, shippingDate:to
-        return null;
+    public List<Long> getAllOrderIds(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
+        return orderService.getAllIdsBetween(from, to);
     }
 
     @GetMapping("/{orderId}")

@@ -30,6 +30,7 @@ public class Order {
     @Column(name = "ship_date")
     private LocalDateTime shipDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
 
