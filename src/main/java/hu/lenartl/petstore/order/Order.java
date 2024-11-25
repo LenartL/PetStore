@@ -2,8 +2,7 @@ package hu.lenartl.petstore.order;
 
 import hu.lenartl.petstore.pet.Pet;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +10,9 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
 
     @Id
@@ -33,5 +35,4 @@ public class Order {
 
     @Column(name = "complete")
     private boolean complete;
-
 }

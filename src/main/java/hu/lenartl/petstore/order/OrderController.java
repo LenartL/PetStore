@@ -39,19 +39,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDetails createOrder(@RequestBody OrderCommand order) {
-        /* TODO: save an order with req and resp containing the following body
-        Req model:
-        {
-        "id": 0,
-        "petId": 0,
-        "quantity": 0,
-        "shipDate": "2024-11-23T15:23:47.645Z",
-        "status": "placed",
-        "complete": true
-        }
-         */
-        return null;
+    public OrderDetails save(@RequestBody OrderCommand order) {
+        return orderService.save(order);
     }
 
     @PatchMapping("/{orderId}")
