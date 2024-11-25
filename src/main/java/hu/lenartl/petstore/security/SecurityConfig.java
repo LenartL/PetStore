@@ -27,11 +27,11 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
-                .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(apiKeyFilter, BasicAuthenticationFilter.class)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.anyRequest().authenticated())
+                                auth.requestMatchers("/error").permitAll()
+                                .anyRequest().authenticated())
         ;
         return http.build();
     }
