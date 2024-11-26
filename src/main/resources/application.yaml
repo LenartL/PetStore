@@ -15,3 +15,6 @@ spring:
     password: "test1234"
 api:
   key: "petstore-api-key"
+logging:
+  level:
+    root: debug
