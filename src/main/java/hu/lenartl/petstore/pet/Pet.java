@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "pets")
 @Getter
 @Setter
-public class Pet {
+public class Pet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pet_id")
@@ -25,5 +26,5 @@ public class Pet {
     private PetStatus status;
 
     @OneToMany(mappedBy = "pet")
-    private List<Order> order;
+    private transient List<Order> order;
 }

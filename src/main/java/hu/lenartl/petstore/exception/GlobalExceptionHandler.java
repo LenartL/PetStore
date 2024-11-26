@@ -25,6 +25,12 @@ public class GlobalExceptionHandler implements ErrorController {
         return messageSource.getMessage("exception.order.not-found", null, Locale.getDefault());
     }
 
+    @ExceptionHandler(JsonPatchMappingException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String orderNotFoundHandler(JsonPatchMappingException e) {
+        return messageSource.getMessage("exception.json.patch", null, Locale.getDefault());
+    }
+
     @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String invalidOrderHandler(RuntimeException e) {

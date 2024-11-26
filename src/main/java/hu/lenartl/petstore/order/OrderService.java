@@ -1,5 +1,11 @@
 package hu.lenartl.petstore.order;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import hu.lenartl.petstore.exception.JsonPatchMappingException;
 import hu.lenartl.petstore.exception.OrderNotFoundException;
 import hu.lenartl.petstore.order.dto.OrderCommand;
 import hu.lenartl.petstore.order.dto.OrderDetails;
@@ -16,10 +22,12 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final PetService petService;
+    private final ObjectMapper objectMapper;
 
-    public OrderService(OrderRepository orderRepository, PetService petService) {
+    public OrderService(OrderRepository orderRepository, PetService petService, ObjectMapper objectMapper) {
         this.orderRepository = orderRepository;
         this.petService = petService;
+        this.objectMapper = objectMapper;
     }
 
     public List<Long> getAllIdsBetween(LocalDateTime from, LocalDateTime to) {
@@ -34,6 +42,18 @@ public class OrderService {
     public OrderDetails save(OrderCommand command) {
         Order order = orderRepository.save(map(command));
         return map(order);
+    }
+
+    public OrderDetails update(Long orderId, JsonPatch patchDocument) {
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        order = applyPatch(patchDocument, order);
+
+        return map(order);
+    }
+
+    public void deleteById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        orderRepository.delete(order);
     }
 
     private Order map(OrderCommand command) throws IllegalArgumentException {
@@ -57,8 +77,12 @@ public class OrderService {
                 .build();
     }
 
-    public void deleteById(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-        orderRepository.delete(order);
+    private Order applyPatch(JsonPatch patchDocument, Order order) {
+        try {
+            JsonNode node = patchDocument.apply(objectMapper.convertValue(order, JsonNode.class));
+            return objectMapper.treeToValue(node, Order.class);
+        } catch (JsonPatchException | JsonProcessingException e) {
+            throw new JsonPatchMappingException(e.getMessage());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package hu.lenartl.petstore.order;
 
+import com.github.fge.jsonpatch.JsonPatch;
 import hu.lenartl.petstore.order.dto.OrderCommand;
 import hu.lenartl.petstore.order.dto.OrderDetails;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class OrderController {
 
     @GetMapping
     public List<Long> getAllOrderIds(
-            @RequestParam(required = false)  LocalDateTime from,
-            @RequestParam(required = false)  LocalDateTime to) {
+            @RequestParam(required = false) LocalDateTime from,
+            @RequestParam(required = false) LocalDateTime to) {
         return orderService.getAllIdsBetween(from, to);
     }
 
@@ -35,10 +36,9 @@ public class OrderController {
         return orderService.save(order);
     }
 
-    @PatchMapping("/{orderId}")
-    public OrderDetails updateOrder(@PathVariable Long orderId, @RequestBody OrderCommand order) {
-        //TODO: patch NonNull values
-        return null;
+    @PatchMapping(value = "/{orderId}", consumes = "application/json-patch+json")
+    public OrderDetails updateOrder(@PathVariable Long orderId, @RequestBody JsonPatch patchDocument) {
+        return orderService.update(orderId, patchDocument);
     }
 
     @DeleteMapping("/{orderId}")
