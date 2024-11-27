@@ -29,7 +29,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
                     .setAuthentication(new ApiKeyAuthentication(apiKey, AuthorityUtils.NO_AUTHORITIES));
             filterChain.doFilter(request, response);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 }
