@@ -1,0 +1,17 @@
+<header>
+  <section>
+    @if (navigation) {
+      <ul class="nav-tabs" #nav="ngbNav" ngbNav [(activeId)]="active">
+        @for (link of navigation; track $index) {
+          <li [ngbNavItem]=$index>
+            <a ngbNavLink
+              [title]="link.title"
+              [routerLink]="link.url">
+              {{ link.linkName }}
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</header>
