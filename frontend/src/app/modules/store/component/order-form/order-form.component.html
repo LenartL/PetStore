@@ -1,1 +1,70 @@
-<p>order-form works!</p>
+<div>
+  @if (orderId) {
+    <h2>Update an order</h2>
+  } @else {
+    <h2>Place a new order</h2>
+  }
+  <form (ngSubmit)="save()" [formGroup]="form">
+    <div>
+      <label>Pet ID
+        <input
+          formControlName="petId"
+          type="number"
+        >
+      </label>
+    </div>
+
+    <div>
+      <label>Quantity
+        <input
+          formControlName="quantity"
+          type="number"
+        ></label>
+    </div>
+    <div>
+      <label>Shipment Date
+        <input
+          formControlName="shipDate"
+          type="datetime-local"
+        ></label>
+    </div>
+
+    <div>
+      <label>
+        <input
+          formControlName="status"
+          value="placed"
+          type="radio"
+        >Placed</label>
+      <label>
+        <input
+          formControlName="status"
+          value="approved"
+          type="radio"
+        >Approved</label>
+      <label>
+        <input
+          formControlName="status"
+          value="delivered"
+          type="radio"
+        >Delivered</label>
+    </div>
+    <div>
+      <label>
+        <input
+          formControlName="complete"
+          [value]="false"
+          type="radio"
+        >Not completed</label>
+      <label>
+        <input
+          formControlName="complete"
+          [value]="true"
+          type="radio"
+        >Completed</label>
+    </div>
+    <div>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</div>

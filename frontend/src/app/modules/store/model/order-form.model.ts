@@ -1,6 +1,4 @@
-export interface OrderDetailsModel {
-
-  id: number,
+export interface OrderFormModel {
   petId: number,
   quantity: number,
   shipDate: Date,
