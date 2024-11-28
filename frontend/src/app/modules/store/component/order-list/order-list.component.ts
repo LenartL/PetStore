@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../service/order.service";
 import {Router} from "@angular/router";
 import {AsyncPipe, DatePipe} from "@angular/common";
+import {AuthService} from "../../../auth/service/auth.service";
 
 @Component({
   selector: 'app-order-list',
@@ -18,7 +19,8 @@ export class OrderListComponent implements OnInit {
   shipDate?: Date
 
   constructor(private readonly _orderService: OrderService,
-              private readonly _router: Router) {
+              private readonly _router: Router,
+              private readonly _authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -26,9 +28,9 @@ export class OrderListComponent implements OnInit {
   }
 
   getShipmentDate(id: number) {
-    this._orderService.getOrderDetails$(id).subscribe(
+    setTimeout(()=>this._orderService.getOrderDetails$(id).subscribe(
       resp => this.shipDate = resp.shipDate
-    )
+    ), 500)
   }
 
   initialize() {
@@ -49,5 +51,13 @@ export class OrderListComponent implements OnInit {
         next: () => this.initialize()
       }
     )
+  }
+
+  getApiKey() {
+    return this._authService.apiKey$.getValue();
+  }
+
+  setApiKey(event: Event) {
+    this._authService.apiKey$.next((event.target as HTMLInputElement).value)
   }
 }

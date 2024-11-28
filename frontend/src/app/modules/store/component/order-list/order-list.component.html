@@ -23,4 +23,9 @@
       }
     </tbody>
   </table>
+  <div>
+    <label>API key:
+      <input type="text" [value]="getApiKey()" (change)="setApiKey($event)">
+    </label>
+  </div>
 </div>
