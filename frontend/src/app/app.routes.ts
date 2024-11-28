@@ -4,11 +4,11 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'order'
+    redirectTo: 'store'
   },
   {
-    path: 'order',
-    loadChildren: () => import('./modules/order/order.routes')
-      .then(r => r.orderRoutes)
+    path: 'store',
+    loadChildren: () => import('./modules/store/store.routes')
+      .then(r => r.storeRoutes)
   }
 ];

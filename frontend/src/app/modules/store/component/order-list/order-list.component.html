@@ -1,0 +1,22 @@
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Modify</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for(id of postIds; track $index) {
+    <tr>
+      <td>{{id}}</td>
+      <td>
+        <button (click)="updateOrder(id)">Modify</button></td>
+      <td>
+        <button (click)="deleteOrder(id)">Delete</button></td>
+    </tr>
+    }
+    </tbody>
+  </table>
+</div>

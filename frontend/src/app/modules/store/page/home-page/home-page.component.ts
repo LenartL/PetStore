@@ -17,16 +17,21 @@ export class HomePageComponent implements OnInit{
   navigation!: HeaderNavigation[];
 
   ngOnInit(): void {
-    this._initNavigation()
+    this.initNavigation()
   }
 
-  private _initNavigation() {
+  private initNavigation() {
     this.navigation = [
       {
         linkName: 'Orders',
         url: ['order-list'],
         title: 'List of orders'
       },
+      {
+        linkName: 'New Order',
+        url: ['order-new'],
+        title: 'Place a new order for a pet'
+      }
     ]
   }
 }
