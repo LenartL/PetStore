@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OrderStatus {
     PLACED("placed"),
     APPROVED("approved"),
-    SHIPPED("shipped");
+    DELIVERED("delivered");
 
     private final String displayValue;
 
