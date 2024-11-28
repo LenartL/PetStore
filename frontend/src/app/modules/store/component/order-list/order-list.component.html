@@ -8,15 +8,19 @@
     </tr>
     </thead>
     <tbody>
-    @for(id of postIds; track $index) {
-    <tr>
-      <td>{{id}}</td>
-      <td>
-        <button (click)="updateOrder(id)">Modify</button></td>
-      <td>
-        <button (click)="deleteOrder(id)">Delete</button></td>
-    </tr>
-    }
+      @for (id of postIds; track $index) {
+        <tr [title]="'Shipment: ' + (shipDate | date:'medium')"
+            (mouseenter)="getShipmentDate(id)"
+            (focus)="getShipmentDate(id)">
+          <td>{{ id }}</td>
+          <td>
+            <button (click)="updateOrder(id)">Modify</button>
+          </td>
+          <td>
+            <button (click)="deleteOrder(id)">Delete</button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

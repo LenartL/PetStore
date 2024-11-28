@@ -12,7 +12,7 @@ import {RouterOutlet} from "@angular/router";
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit{
+export class HomePageComponent implements OnInit {
 
   navigation!: HeaderNavigation[];
 

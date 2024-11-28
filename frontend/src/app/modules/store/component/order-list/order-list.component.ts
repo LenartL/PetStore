@@ -1,16 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../service/order.service";
 import {Router} from "@angular/router";
+import {AsyncPipe, DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [],
+  imports: [
+    AsyncPipe,
+    DatePipe
+  ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
 export class OrderListComponent implements OnInit {
   postIds!: number[]
+  shipDate?: Date
 
   constructor(private readonly _orderService: OrderService,
               private readonly _router: Router) {
@@ -18,6 +23,12 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialize();
+  }
+
+  getShipmentDate(id: number) {
+    this._orderService.getOrderDetails$(id).subscribe(
+      resp => this.shipDate = resp.shipDate
+    )
   }
 
   initialize() {

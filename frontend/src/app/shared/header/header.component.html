@@ -5,8 +5,8 @@
         @for (link of navigation; track $index) {
           <li [ngbNavItem]=$index>
             <a ngbNavLink
-              [title]="link.title"
-              [routerLink]="link.url">
+               [title]="link.title"
+               [routerLink]="link.url">
               {{ link.linkName }}
             </a>
           </li>
