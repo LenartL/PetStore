@@ -3,6 +3,7 @@ package hu.lenartl.petstore.order;
 import com.github.fge.jsonpatch.JsonPatch;
 import hu.lenartl.petstore.order.dto.OrderCommand;
 import hu.lenartl.petstore.order.dto.OrderDetails;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,8 +22,8 @@ public class OrderController {
 
     @GetMapping
     public List<Long> getAllOrderIds(
-            @RequestParam(required = false) LocalDateTime from,
-            @RequestParam(required = false) LocalDateTime to) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return orderService.getAllIdsBetween(from, to);
     }
 
