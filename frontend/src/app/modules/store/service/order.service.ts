@@ -11,9 +11,20 @@ import {Observable} from "rxjs";
 })
 export class OrderService {
   private readonly BASE_URL = `${environment.url}/store`;
-  getOrderIds$ = this._http.get<number[]>(`${this.BASE_URL}/order`);
+
 
   constructor(private readonly _http: HttpClient) {
+  }
+
+  getOrderIds$(from?: Date | null, to?: Date | null) {
+    let dateParams = {from: '', to: ''}
+    if (from) {
+      dateParams.from = from.toISOString();
+    }
+    if (to) {
+      dateParams.to = to.toISOString();
+    }
+    return this._http.get<number[]>(`${this.BASE_URL}/order`, {params: dateParams});
   }
 
   getOrderDetails$(id: number): Observable<OrderDetailsModel> {
