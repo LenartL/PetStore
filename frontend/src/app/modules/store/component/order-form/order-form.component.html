@@ -6,8 +6,8 @@
   }
   <form (ngSubmit)="save()" [formGroup]="form">
     <div>
-      <label>Pet ID
-        <input
+      <label class="form-label">Pet ID
+        <input class="form-text"
           formControlName="petId"
           type="number"
         >
@@ -15,56 +15,56 @@
     </div>
 
     <div>
-      <label>Quantity
-        <input
+      <label class="form-label">Quantity
+        <input class="form-text"
           formControlName="quantity"
           type="number"
         ></label>
     </div>
     <div>
-      <label>Shipment Date
-        <input
+      <label class="form-label">Shipment Date
+        <input class="form-text"
           formControlName="shipDate"
           type="datetime-local"
         ></label>
     </div>
 
     <div>
-      <label>
-        <input
+      <label class="form-check-label">
+        <input class="form-check-input"
           formControlName="status"
           value="placed"
           type="radio"
         >Placed</label>
-      <label>
-        <input
+      <label class="form-check-label">
+        <input class="form-check-input"
           formControlName="status"
           value="approved"
           type="radio"
         >Approved</label>
-      <label>
-        <input
+      <label class="form-check-label">
+        <input class="form-check-input"
           formControlName="status"
           value="delivered"
           type="radio"
         >Delivered</label>
     </div>
     <div>
-      <label>
-        <input
+      <label class="form-check-label">
+        <input class="form-check-input"
           formControlName="complete"
           [value]="false"
           type="radio"
         >Not completed</label>
-      <label>
-        <input
+      <label class="form-check-label">
+        <input class="form-check-input"
           formControlName="complete"
           [value]="true"
           type="radio"
         >Completed</label>
     </div>
     <div>
-      <button type="submit">Save</button>
+      <button class="btn btn-success" type="submit">Save</button>
     </div>
   </form>
 </div>

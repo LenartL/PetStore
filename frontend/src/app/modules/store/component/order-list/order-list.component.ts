@@ -1,9 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../service/order.service";
 import {Router} from "@angular/router";
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {AuthService} from "../../../auth/service/auth.service";
-import {NgbCalendar, NgbDate, NgbDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDate, NgbDatepicker, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-order-list',
@@ -11,7 +11,8 @@ import {NgbCalendar, NgbDate, NgbDatepicker} from "@ng-bootstrap/ng-bootstrap";
   imports: [
     AsyncPipe,
     DatePipe,
-    NgbDatepicker
+    NgbDatepicker,
+    NgbTooltip
   ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
@@ -19,7 +20,6 @@ import {NgbCalendar, NgbDate, NgbDatepicker} from "@ng-bootstrap/ng-bootstrap";
 export class OrderListComponent implements OnInit {
   postIds!: number[]
   shipDate?: Date
-  calendar = inject(NgbCalendar);
 
   hoveredDate: NgbDate | null = null;
   fromDate?: NgbDate | null;
