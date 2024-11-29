@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Locale;
-import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler implements ErrorController {
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler implements ErrorController {
         return messageSource.getMessage("exception.json.patch", null, Locale.getDefault());
     }
 
-    @ExceptionHandler({NoSuchElementException.class, IllegalArgumentException.class})
+    @ExceptionHandler({InvalidOrderException.class, MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String invalidOrderHandler(RuntimeException e) {
         return messageSource.getMessage("exception.order.invalid", null, Locale.getDefault());

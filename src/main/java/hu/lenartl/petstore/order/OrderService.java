@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
+import hu.lenartl.petstore.exception.InvalidOrderException;
 import hu.lenartl.petstore.exception.JsonPatchMappingException;
 import hu.lenartl.petstore.exception.OrderNotFoundException;
 import hu.lenartl.petstore.order.dto.OrderCommand;
@@ -56,14 +57,20 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
-    private Order map(OrderCommand command) throws IllegalArgumentException {
-        return Order.builder()
-                .pet(petService.findById(command.petId()))
-                .quantity(command.quantity())
-                .shipDate(command.shipDate())
-                .status(OrderStatus.valueOf(command.status().toUpperCase()))
-                .complete(command.complete())
-                .build();
+    private Order map(OrderCommand command) {
+        Order order;
+        try {
+            order = Order.builder()
+                    .pet(petService.findById(command.petId()))
+                    .quantity(command.quantity())
+                    .shipDate(command.shipDate())
+                    .status(OrderStatus.valueOf(command.status().toUpperCase()))
+                    .complete(command.complete())
+                    .build();
+        } catch (RuntimeException e) {
+            throw new InvalidOrderException();
+        }
+        return order;
     }
 
     private OrderDetails map(Order order) {
