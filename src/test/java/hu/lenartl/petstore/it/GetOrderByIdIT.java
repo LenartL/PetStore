@@ -1,6 +1,5 @@
 package hu.lenartl.petstore.it;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,8 +30,6 @@ class GetOrderByIdIT {
     @Autowired
     private WebApplicationContext wac;
     private MockMvc mvc;
-    @Autowired
-    private ObjectMapper mapper;
 
     @Value("${api.key}")
     private String apiKeyValue;
